@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+for i in $(cut -f2 -d, people); do
+  echo $i
+done
