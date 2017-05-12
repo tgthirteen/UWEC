@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<pthread.h>
 #include<omp.h>
+#include<unistd.h>
 
 int primeCount = 0;
 
@@ -158,6 +159,7 @@ int threadedPrimesInRange(int low, int high) {
 
 int blocking(int lower, int upper) {
 
+
 	pthread_mutex_lock(&lock);
 
 	primeCount = 0;
@@ -206,9 +208,7 @@ int blocking(int lower, int upper) {
 
 	printf("overall Time: %f with %d found\n", endTotalTime - startTotalTime, primeCount);
 
-	
-
-/* Test Code
+/*
 
 	int n = 4;
 
@@ -230,49 +230,13 @@ int blocking(int lower, int upper) {
 
 */
 
-/*
-
-	omp_set_num_threads(4); //if !1 then gives the wrong answer
-
-	int localPrimeCount = 0;
-
-	int i;
-
-	#pragma omp parallel for
-
-	for(i = lower; i < upper; i++) {
-
-		if(isPrime(i)) {
-
-			localPrimeCount++;
-
-		}
-
-	}
-
-	pthread_mutex_lock(&lock);
-
-	primeCount += localPrimeCount;
-
-	pthread_mutex_unlock(&lock);
-
-	
-
-	printf("\nThere are %d prime numbers in the range: %d - %d\n", primeCount, lower, upper);
-
-	*/
-
 }
 
 
 
 int striping(int lower, int upper) {
 
-	pthread_mutex_lock(&lock);
-
 	primeCount = 0;
-
-	pthread_mutex_unlock(&lock);
 
 	int n = 5;
 
